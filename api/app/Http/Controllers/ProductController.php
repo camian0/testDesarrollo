@@ -21,8 +21,6 @@ class ProductController extends Controller
     {
         $response = new Response();
         try {
-            // $productModel = new Product();
-
             $products = Product::all();
 
             $response->error   = false;
