@@ -19,4 +19,9 @@ class Product extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
