@@ -15,8 +15,7 @@ class ProductFactory extends Factory
     {
         $gender = ['Male', 'Female'];
         return [
-            // 'id'          => $this->faker->numberBetween(1, 5),
-            'name'        => $this->faker->name(),
+            'name'        => $this->faker->firstName($gender[$this->faker->numberBetween(0, 1)]),
             'description' => $this->faker->text(100),
             'price'       => $this->faker->randomNumber(5),
         ];
