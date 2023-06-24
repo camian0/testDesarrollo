@@ -13,19 +13,66 @@ class ProductController extends Controller
 {
 
     /**
-     * Show the form for creating a new resource.
+     * Show the all products
+     * @return  \App\Models\Response
      *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function get()
     {
+        $response = new Response();
+        try {
+            // $productModel = new Product();
+
+            $products = Product::all();
+
+            $response->error   = false;
+            $response->data    = $products;
+            $response->message = 'Productos obtenidos correctamente.';
+            return $response->toJSON();
+
+        } catch (ProductException $e) {
+            Log::error("Error en obtener productos \n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            $response->error   = true;
+            $response->message = 'No se pudieron obtener los productos, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
+    }
+
+    /**
+     * Get product by id provided to parameter
+     *
+     * @param  Product  $product
+     * @return  \App\Models\Response
+     */
+    public function getProductById(Product $product)
+    {
+        $response = new Response();
+        try {
+            if ($product === null) {
+                $response->error   = true;
+                $response->message = "No se encontró el producto, verifica el seleccionado.";
+                return $response->toJSON();
+            }
+
+            $response->error   = false;
+            $response->message = 'Producto obtenido correctamente.';
+            $response->data    = $product;
+            return $response->toJSON();
+
+        } catch (ProductException $e) {
+            Log::error("Error en obtener producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return  \App\Models\Response
      */
     public function store(Request $request)
     {
@@ -64,8 +111,8 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return  \App\Models\Response
      */
     public function update(Request $request, Product $product)
     {
@@ -107,7 +154,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Product  $product
      * @return \Illuminate\Http\Response
      */
     public function delete(Product $product)
