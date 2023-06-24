@@ -67,9 +67,41 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $response = new Response();
+        try {
+            if ($product === null) {
+                $response->error   = true;
+                $response->message = "Producto no encontrado, verifica el producto seleccionado";
+                return $response->toJSON();
+            }
+
+            $validation = Validator::make($request->all(), [
+                'name'        => 'required',
+                'description' => 'required',
+                'price'       => 'required||numeric',
+            ]);
+
+            if ($validation->fails()) {
+                $response->error   = true;
+                $response->message = $validation->getMessageBag()->first() . " para producto.";
+                return $response->toJSON();
+            }
+
+            $product->fill($request->all());
+            $product->update();
+
+            $response->error   = false;
+            $response->message = 'Producto actualizado correctamente.';
+            return $response->toJSON();
+
+        } catch (ProductException $e) {
+            Log::error("Error en la creacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            $response->error   = true;
+            $response->message = 'No se pudo crear el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 
     /**
@@ -78,7 +110,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Product $product)
     {
         //
     }
