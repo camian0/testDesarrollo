@@ -25,4 +25,5 @@ Route::group([
     // Route::get('', [ProductController::class, 'store']);
     Route::post('', [ProductController::class, 'store'])->name('create_products');
     Route::put("{product}", [ProductController::class, 'update'])->name('update_product');
+    Route::delete("{product}", [ProductController::class, 'delete'])->name('delete_pruduct');
 });

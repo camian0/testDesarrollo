@@ -97,9 +97,9 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en la creacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::error("Error en la actualización de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
             $response->error   = true;
-            $response->message = 'No se pudo crear el producto, verifica con el administrador el error.';
+            $response->message = 'No se pudo actualizar el producto, verifica con el administrador el error.';
             return $response->toJSON();
         }
     }
@@ -112,6 +112,24 @@ class ProductController extends Controller
      */
     public function delete(Product $product)
     {
-        //
+        $response = new Response();
+        try {
+            if ($product === null) {
+                $response->error   = true;
+                $response->message = "Producto no encontrado, verifica el producto seleccionado";
+                return $response->toJSON();
+            }
+            $product->delete();
+
+            $response->error   = false;
+            $response->message = 'Producto eliminado correctamente.';
+            return $response->toJSON();
+
+        } catch (ProductException $e) {
+            Log::error("Error en la eliminacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 }
