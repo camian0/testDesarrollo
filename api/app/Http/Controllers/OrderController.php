@@ -155,7 +155,6 @@ class OrderController extends Controller
                 return $response->toJSON();
             }
             $order->fill($request->all());
-            dd($order);
 
             $order->update();
 
