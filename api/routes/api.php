@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,21 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group([
-    // 'middleware' => 'auth.api',
-    'prefix' => 'products',
+    'middleware' => 'api',
+    'prefix'     => 'auth',
+
+], function ($router) {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    // Route::post('refresh', 'AuthController@refresh');
+    // Route::post('me', 'AuthController@me');
+
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix'     => 'products',
 ], function ($router) {
     Route::get('', [ProductController::class, 'get'])->name('get_products');
     Route::get('{product}', [ProductController::class, 'getProductById'])->name('get_product_by_id');
@@ -31,7 +45,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'orders',
+    'middleware' => 'auth',
+    'prefix'     => 'orders',
 ], function ($router) {
     Route::get('', [OrderController::class, 'get'])->name('get_orders');
     Route::get('{order}', [OrderController::class, 'getOrderById'])->name('get_order_by_id');
