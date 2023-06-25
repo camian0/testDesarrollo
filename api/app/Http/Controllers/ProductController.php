@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\ProductException;
 use App\Models\Product;
 use App\Models\Response;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,12 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en obtener productos \n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::warning("Error en obtener productos \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudieron obtener los productos, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en obtener productos \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
             $response->message = 'No se pudieron obtener los productos, verifica con el administrador el error.';
             return $response->toJSON();
@@ -58,7 +64,12 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en obtener producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::warning("Error en obtener producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en obtener producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
             $response->message = 'No se pudo obtener el producto, verifica con el administrador el error.';
             return $response->toJSON();
@@ -97,7 +108,12 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en la creacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::warning("Error en la creacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo crear el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en la creacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
             $response->message = 'No se pudo crear el producto, verifica con el administrador el error.';
             return $response->toJSON();
@@ -142,7 +158,12 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en la actualización de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::warning("Error en la actualización de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo actualizar el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en la actualización de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
             $response->message = 'No se pudo actualizar el producto, verifica con el administrador el error.';
             return $response->toJSON();
@@ -171,7 +192,12 @@ class ProductController extends Controller
             return $response->toJSON();
 
         } catch (ProductException $e) {
-            Log::error("Error en la eliminacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTrace());
+            Log::warning("Error en la eliminacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar el producto, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en la eliminacion de producto\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
             $response->message = 'No se pudo eliminar el producto, verifica con el administrador el error.';
             return $response->toJSON();
