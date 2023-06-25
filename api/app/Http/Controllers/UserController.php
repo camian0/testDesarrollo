@@ -88,12 +88,50 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Models\User $user
      * @return App\Models\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $response = new Response();
+        try {
+            if ($user === null) {
+                $response->error   = true;
+                $response->message = "Usuario no encontrado, verifica el seleccionado";
+                return $response->toJSON();
+            }
+
+            $validation = Validator::make($request->all(), [
+                'name'     => 'required',
+                'email'    => 'required|email',
+                'password' => 'required|min:8',
+            ]);
+
+            if ($validation->fails()) {
+                $response->error   = true;
+                $response->message = $validation->getMessageBag()->first() . " para el usuario.";
+                return $response->toJSON();
+            }
+
+            $user->fill($request->all());
+            $user->password = bcrypt($request->password);
+            $user->update();
+
+            $response->error   = false;
+            $response->message = 'Usuario actualizado correctamente.';
+            return $response->toJSON();
+
+        } catch (UserException $e) {
+            Log::warning("Error al actualizar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo actualzar el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error al actualizar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo actualzar el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 
     /**

@@ -58,8 +58,7 @@ Route::group([
 Route::group([
     'prefix' => 'users',
 ], function ($router) {
-
     Route::get('', [UserController::class, 'get'])->name('get_users');
     Route::post('', [UserController::class, 'store'])->name('create_user');
-
+    Route::put('{user}', [UserController::class, 'update'])->name('update_user');
 });
