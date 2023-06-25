@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,4 +53,13 @@ Route::group([
     Route::post('', [OrderController::class, 'store'])->name('create_order');
     Route::put('{order}', [OrderController::class, 'update'])->name('update_order');
     Route::delete('{order}', [OrderController::class, 'delete'])->name('delete_order');
+});
+
+Route::group([
+    'prefix' => 'users',
+], function ($router) {
+
+    Route::get('', [UserController::class, 'get'])->name('get_users');
+    Route::post('', [UserController::class, 'store'])->name('create_user');
+
 });
