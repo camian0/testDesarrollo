@@ -48,13 +48,36 @@ class OrderController extends Controller
     /**
      * Display the specified order.
      *
-     * @param  int  $id
+     * @param  App\Models\Order  $order
      * @return App\Models\Response
      */
 
-    public function getOrderByI($id)
+    public function getOrderById(Order $order)
     {
-        //
+        $response = new Response();
+        try {
+            if ($order === null) {
+                $response->error   = true;
+                $response->message = "Orden no encontrada, verifica el seleccinado";
+                return $response->toJSON();
+            }
+
+            $response->error   = false;
+            $response->message = 'Orden obtenida correctamente.';
+            $response->data    = $order;
+            return $response->toJSON();
+
+        } catch (OrderException $e) {
+            Log::warning("Error en obtener orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error obtener orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 
     /**
