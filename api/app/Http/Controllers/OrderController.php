@@ -134,7 +134,46 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $response = new Response();
+        try {
+            if ($order === null) {
+                $response->error   = true;
+                $response->message = 'Orden no encontrada, verifica la seleccionada';
+                return $response->toJSON();
+            }
+
+            $validation = Validator::make($request->all(), [
+                'user_id'    => 'required|numeric|exists:users,id',
+                'product_id' => 'required|numeric|exists:products,id',
+                'date'       => 'required|date',
+                'quantity'   => 'required|numeric',
+            ]);
+
+            if ($validation->fails()) {
+                $response->error   = true;
+                $response->message = $validation->getMessageBag()->first() . " para la orden.";
+                return $response->toJSON();
+            }
+            $order->fill($request->all());
+            dd($order);
+
+            $order->update();
+
+            $response->error   = false;
+            $response->message = 'Orden actualizada correctamente.';
+            return $response->toJSON();
+
+        } catch (OrderException $e) {
+            Log::warning("Error en la actulizacion de la orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo actualizar la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en la actulizacion de la orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo actualizar la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 
     /**
