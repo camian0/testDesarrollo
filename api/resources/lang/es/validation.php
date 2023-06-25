@@ -43,7 +43,7 @@ return [
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => 'El :attribute debe ser un correo válido.',
+    'email'                => 'El :attribute debe ser un correo válido',
     'ends_with'            => 'The :attribute must end with one of the following: :values.',
     'enum'                 => 'The selected :attribute is invalid.',
     'exists'               => 'El :attribute seleccionado es inválido',
@@ -93,7 +93,7 @@ return [
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
+        'string'  => 'La :attribute debe ser de al menos :min caracteres',
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'multiple_of'          => 'The :attribute must be a multiple of :value.',

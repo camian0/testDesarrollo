@@ -54,16 +54,18 @@ class UserController extends Controller
             $validation = Validator::make($request->all(), [
                 'name'     => 'required',
                 'email'    => 'required|email',
-                'password' => 'required|date|min:8',
+                'password' => 'required|min:8',
             ]);
 
             if ($validation->fails()) {
                 $response->error   = true;
-                $response->message = $validation->getMessageBag()->first() . " para la usuario.";
+                $response->message = $validation->getMessageBag()->first() . " para el usuario.";
                 return $response->toJSON();
             }
             $user = new User();
             $user->fill($request->all());
+            $user->password = bcrypt($request->password);
+            $user->save();
 
             $response->error   = false;
             $response->message = 'Usuario creado correctamente.';
