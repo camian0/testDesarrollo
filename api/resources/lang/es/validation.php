@@ -33,7 +33,7 @@ return [
     'boolean'              => 'The :attribute field must be true or false.',
     'confirmed'            => 'The :attribute confirmation does not match.',
     'current_password'     => 'The password is incorrect.',
-    'date'                 => 'The :attribute is not a valid date.',
+    'date'                 => 'La :attribute no es una fecha válida',
     'date_equals'          => 'The :attribute must be a date equal to :date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'declined'             => 'The :attribute must be declined.',
@@ -46,7 +46,7 @@ return [
     'email'                => 'El :attribute debe ser un correo válido.',
     'ends_with'            => 'The :attribute must end with one of the following: :values.',
     'enum'                 => 'The selected :attribute is invalid.',
-    'exists'               => 'The selected :attribute is invalid.',
+    'exists'               => 'El :attribute seleccionado es inválido',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
     'gt'                   => [
@@ -99,7 +99,7 @@ return [
     'multiple_of'          => 'The :attribute must be a multiple of :value.',
     'not_in'               => 'The selected :attribute is invalid.',
     'not_regex'            => 'The :attribute format is invalid.',
-    'numeric'              => ' :attribute debe ser un número',
+    'numeric'              => ':attribute debe ser un número',
     'password'             => 'The password is incorrect.',
     'present'              => 'The :attribute field must be present.',
     'prohibited'           => 'The :attribute field is prohibited.',
@@ -159,9 +159,13 @@ return [
      */
 
     'attributes'           => [
-        'name'        => "El nombre",
+        'name'        => 'El nombre',
         'description' => 'La descripcion',
         'price'       => 'El precio',
+        'user_id'     => 'Usuario',
+        'date'        => 'Fecha',
+        'product_id'  => 'Producto',
+        'quantity'    => 'Cantidad',
     ],
 
 ];
