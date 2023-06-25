@@ -219,6 +219,31 @@ class OrderController extends Controller
      */
     public function ordersByUser(User $user)
     {
-        //
+        $response = new Response();
+        try {
+            if ($user === null) {
+                $response->error   = true;
+                $response->message = "Usuario no encontrado, verifica el seleccionada.";
+                return $response->toJSON();
+            }
+
+            $orders = User::where('id', '=', $user->id)->with(['orders'])->get();
+
+            $response->error   = false;
+            $response->message = 'Ordenes por usuario obtenidas correctamente.';
+            $response->data    = $orders;
+            return $response->toJSON();
+
+        } catch (OrderException $e) {
+            Log::warning("Error obteniendo ordenes por usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se obtuvieron las ordenes por usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error obteniendo ordenes por usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se obtuvieron las ordenes por usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 }
