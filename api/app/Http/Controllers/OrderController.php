@@ -15,14 +15,34 @@ class OrderController extends Controller
 {
 
     /**
-     * Show the all orders
+     * Show all the orders
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Models\Response
      */
 
     public function get()
     {
-        //
+        $response = new Response();
+        try {
+
+            $orders = Order::all();
+
+            $response->error   = false;
+            $response->message = 'Ordenes obtenidas correctamente.';
+            $response->data    = $orders;
+            return $response->toJSON();
+
+        } catch (OrderException $e) {
+            Log::warning("Error en obtener las ordenes \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudieron obtener las ordenes, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en obtener las ordenes \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudieron obtener las ordenes, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 
     /**

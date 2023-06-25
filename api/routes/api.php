@@ -33,5 +33,6 @@ Route::group([
 Route::group([
     'prefix' => 'orders',
 ], function () {
+    Route::get('', [OrderController::class, 'get'])->name('get_orders');
     Route::post('', [OrderController::class, 'store'])->name('create_order');
 });
