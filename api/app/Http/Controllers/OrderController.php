@@ -178,12 +178,37 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\Order  $order
      * @return App\Models\Response
      */
-    public function delete($id)
+    public function delete(Order $order)
     {
-        //
+        $response = new Response();
+        try {
+            if ($order === null) {
+                $response->error   = true;
+                $response->message = "Orden no encontrada, verifica la seleccionada.";
+                return $response->toJSON();
+            }
+
+            $order->delete();
+
+            $response->error   = false;
+            $response->message = 'Orden eliminada correctamente.';
+            return $response->toJSON();
+
+        } catch (OrderException $e) {
+            Log::warning("Error para eliminar la orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error para eliminar la orden \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar la orden, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
+
     }
 
     /**
