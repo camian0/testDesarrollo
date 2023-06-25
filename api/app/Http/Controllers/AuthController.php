@@ -47,8 +47,9 @@ class AuthController extends Controller
                 return $response->toJSON();
             }
 
-            $response->error = false;
-            $response->data  = ["token" => $token];
+            $response->error   = false;
+            $response->message = "Sesion iniciada correctamente.";
+            $response->data    = ["token" => $token];
             return $response->toJSON();
 
         } catch (Throwable $th) {
