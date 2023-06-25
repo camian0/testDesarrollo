@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'jwtAuth',
     'prefix'     => 'auth',
 
 ], function ($router) {
@@ -34,7 +34,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'jwtAuth',
     'prefix'     => 'products',
 ], function ($router) {
     Route::get('', [ProductController::class, 'get'])->name('get_products');
@@ -45,7 +45,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'auth',
+    'middleware' => 'jwtAuth',
     'prefix'     => 'orders',
 ], function ($router) {
     Route::get('', [OrderController::class, 'get'])->name('get_orders');
