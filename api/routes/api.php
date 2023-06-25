@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group([
-    'middleware' => 'jwtAuth',
-    'prefix'     => 'auth',
-
+    'prefix' => 'auth',
 ], function ($router) {
 
     Route::post('login', [AuthController::class, 'login']);
