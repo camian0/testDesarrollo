@@ -124,12 +124,12 @@ class UserController extends Controller
         } catch (UserException $e) {
             Log::warning("Error al actualizar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
-            $response->message = 'No se pudo actualzar el usuario, verifica con el administrador el error.';
+            $response->message = 'No se pudo actualizar el usuario, verifica con el administrador el error.';
             return $response->toJSON();
         } catch (Exception $e) {
             Log::error("Error al actualizar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
             $response->error   = true;
-            $response->message = 'No se pudo actualzar el usuario, verifica con el administrador el error.';
+            $response->message = 'No se pudo actualizar el usuario, verifica con el administrador el error.';
             return $response->toJSON();
         }
     }
@@ -137,11 +137,34 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  App\Models\User $user
      * @return App\Models\Response
      */
-    public function delete($id)
+    public function delete(User $user)
     {
-        //
+        $response = new Response();
+        try {
+            if ($user === null) {
+                $response->error   = true;
+                $response->message = "Usuario no encontrado, verifica el seleccionado";
+                return $response->toJSON();
+            }
+            $user->delete();
+
+            $response->error   = false;
+            $response->message = 'Usuario eliminado correctamente.';
+            return $response->toJSON();
+
+        } catch (UserException $e) {
+            Log::warning("Error al eliminar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error al eliminar usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo eliminar el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
     }
 }

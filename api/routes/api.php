@@ -61,4 +61,5 @@ Route::group([
     Route::get('', [UserController::class, 'get'])->name('get_users');
     Route::post('', [UserController::class, 'store'])->name('create_user');
     Route::put('{user}', [UserController::class, 'update'])->name('update_user');
+    Route::delete('{user}', [UserController::class, 'delete'])->name('delete_user');
 });
