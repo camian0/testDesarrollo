@@ -42,6 +42,39 @@ class UserController extends Controller
     }
 
     /**
+     * Show all the users
+     *
+     * @param  App\Models\User $user
+     */
+    public function getUserById(User $user)
+    {
+        $response = new Response();
+        try {
+            if ($user === null) {
+                $response->error   = true;
+                $response->message = "Usuario no encontrado, verifica el ingresado.";
+                return $response->toJSON();
+            }
+
+            $response->error   = false;
+            $response->data    = $user;
+            $response->message = 'Usuario obtenido correctamente.';
+            return $response->toJSON();
+
+        } catch (UserException $e) {
+            Log::warning("Error en obtener usuario\n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        } catch (Exception $e) {
+            Log::error("Error en obtener usuario \n" . $e->getMessage() . "\n\n" . $e->getTraceAsString());
+            $response->error   = true;
+            $response->message = 'No se pudo obtener el usuario, verifica con el administrador el error.';
+            return $response->toJSON();
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
