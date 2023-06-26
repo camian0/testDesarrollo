@@ -33,7 +33,7 @@ php artisan migrate:fresh --seed
 2. Dentro del directorio de vue, correr:
 
 ```
-npm intall
+npm install
 ```
 
 para instalar la librerias necesarias para su funcionamiento.
