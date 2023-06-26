@@ -14,9 +14,7 @@ import Navbar from "../src/components/Navbar.vue";
 
 <style scoped>
 body {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif !important;
+  font-family: "Courier New", Courier, monospace !important;
   min-height: 100vh;
   color: #2c3e50;
   background-color: rgb(224 231 231) !important;
