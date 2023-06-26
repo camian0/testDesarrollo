@@ -2,7 +2,7 @@
 
 Este proyecto fue desarrollado en Vue 3 para el front-end, y Laravel 8 como API para el back-end
 
-## Recomendaciones para correr el Larvel Api
+## Recomendaciones para correr Larvel Api
 
 1. tener instalado composer para el manejo de dependencias
 2. Dentro del directiorio del api correr
@@ -19,7 +19,7 @@ Para descargar las librerias necesarias
 php artisan serve
 ```
 
-4. Motor de base de datos mysql, crear una base de dato con el nombre store_people.
+4. Motor de base de datos mysql, crear una base de datos con el nombre store_people.
 
 5. Para crear las tablas en la base de datos, con información de prueba
 
@@ -27,24 +27,19 @@ php artisan serve
 php artisan migrate:fresh --seed
 ```
 
-## Customize configuration
+## Recomendaciones para correr Vue
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. Tener instalado node.js para el manejo de dependencias
+2. Dentro del directorio de vue, correr:
 
-## Project Setup
-
-```sh
-npm install
+```
+npm intall
 ```
 
-### Compile and Hot-Reload for Development
+para instalar la librerias necesarias para su funcionamiento.
 
-```sh
+4. Para correr el servidor local de vue
+
+```
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```
