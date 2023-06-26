@@ -4,7 +4,7 @@ Este proyecto fue desarrollado en Vue 3 para el front-end, y Laravel 8 como API 
 
 ## Recomendaciones para correr Laravel Api
 
-1. tener instalado composer para el manejo de dependencias
+1. Tener instalado composer para el manejo de dependencias
 2. Dentro del directiorio del api correr
 
 ```
