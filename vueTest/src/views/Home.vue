@@ -1,19 +1,16 @@
 <template>
-  <Navbar />
-  <main>
-    <h1>pagina de inicio</h1>
-  </main>
+  <!-- <Navbar /> -->
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
+// import Navbar from "../components/Navbar.vue";
 export default {
   name: "Home",
   setup() {
     return {};
   },
   components: {
-    Navbar,
+    // Navbar,
   },
 };
 </script>
