@@ -5,9 +5,11 @@ import Navbar from "../src/components/Navbar.vue";
 </script>
 
 <template>
-  <Home />
   <Navbar />
-  <RouterView />
+  <main>
+    <Home />
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
@@ -22,5 +24,8 @@ body {
   line-height: 1.6;
   font-size: 15px;
   text-rendering: optimizeLegibility;
+}
+main {
+  padding: 0px 25px;
 }
 </style>
