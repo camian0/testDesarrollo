@@ -1,12 +1,15 @@
 <template>
-  <h1>Inicio</h1>
+  <h1 class="animate__animated animate__bounceIn">Inicio</h1>
 
-  <p>
+  <p class="animate__animated animate__zoomIn animate__delay-1s">
     Aqui encontraras los productos que necesitas, con los mejores precios del
     mercado, preguntenos por lo que no vea.
   </p>
 
-  <div id="image-banner">
+  <div
+    id="image-banner"
+    class="animate__animated animate__fadeInDown animate__delay-2s"
+  >
     <el-image
       style="height: 650px"
       src="https://www.elfinancierocr.com/resizer/Ftg8rai_Aew71GX16LsyTBMjECA=/1440x0/filters:format(jpg):quality(70)/cloudfront-us-east-1.images.arcpublishing.com/gruponacion/SBCJBG5V2VFJPA33CM2CQGKD3U.jpg"
@@ -14,7 +17,7 @@
     />
   </div>
 
-  <section class="">
+  <section class="animate__animated animate__zoomIn animate__delay-3s">
     <h2>Bienvenido</h2>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia maxime
@@ -28,6 +31,8 @@
 </template>
 
 <script>
+import "animate.css";
+
 export default {
   name: "Home",
   setup() {
