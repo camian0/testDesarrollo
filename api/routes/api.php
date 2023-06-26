@@ -33,8 +33,8 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'jwtAuth',
-    'prefix'     => 'products',
+    // 'middleware' => 'jwtAuth',
+    'prefix' => 'products',
 ], function ($router) {
     Route::get('', [ProductController::class, 'get'])->name('get_products');
     Route::get('{product}', [ProductController::class, 'getProductById'])->name('get_product_by_id');
@@ -44,8 +44,8 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'jwtAuth',
-    'prefix'     => 'orders',
+    // 'middleware' => 'jwtAuth',
+    'prefix' => 'orders',
 ], function ($router) {
     Route::get('', [OrderController::class, 'get'])->name('get_orders');
     Route::get('{order}', [OrderController::class, 'getOrderById'])->name('get_order_by_id');
@@ -56,6 +56,7 @@ Route::group([
 });
 
 Route::group([
+    // 'middleware' => 'jwtAuth',
     'prefix' => 'users',
 ], function ($router) {
     Route::get('', [UserController::class, 'get'])->name('get_users');
